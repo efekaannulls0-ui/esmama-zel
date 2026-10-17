@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadece Senin İçin Esma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0b0b0b;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* ORTAK EKRAN STİLLERİ */
+        .screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 25px;
+            transition: opacity 1s ease;
+        }
+
+        /* 1. EKRAN (GİRİŞ SÖZÜ) */
+        #screen1 {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.98));
+            z-index: 3;
+        }
+
+        #screen1 h1 {
+            font-size: 1.35rem;
+            font-weight: 400;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(255,51,102,0.4);
+        }
+
+        /* 10 Saniyelik Yükleme Çubuğu */
+        .loader-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            width: 0%;
+            height: 100%;
+            background: #ff3366;
+            animation: load 10s linear forwards;
+        }
+
+        @keyframes load {
+            to { width: 100%; }
+        }
+
+        /* 2. EKRAN (SORU EKRANI) */
+        #screen2 {
+            background: #121212;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+            display: none;
+        }
+
+        .question-card {
+            background: #1e1e1e;
+            padding: 40px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            width: 90%;
+            max-width: 420px;
+        }
+
+        #screen2 h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #e1e1e1;
+        }
+
+        .forward-btn {
+            background: linear-gradient(45deg, #ff3366, #ff6633);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 51, 102, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .forward-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 3. EKRAN (FOTOĞRAF VE İNDİRME) */
+        #screen3 {
+            background: #0b0b0b;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            display: none;
+        }
+
+        .image-card {
+            background: #181818;
+            padding: 20px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+        }
+
+        .final-img {
+            width: 100%;
+            max-height: 50vh;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .sub-text {
+            font-size: 1.05rem;
+            color: #e1e1e1;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            background-color: transparent;
+            color: #ff3366;
+            border: 1px solid #ff3366;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .download-btn:active {
+            background-color: rgba(255, 51, 102, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. EKRAN -->
+    <div id="screen1" class="screen">
+        <h1>“kimsede tatmadigim duygulari seninle tatmak seni zevkinin doruklarına cıkarıp hayatında unutulamaz bi iz birakmak istiyorum esmamm.”</h1>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- 2. EKRAN -->
+    <div id="screen2" class="screen">
+        <div class="question-card">
+            <h2>“beni kendimden geçiriyorsun sende kendinden geçmeye hazir misin?”</h2>
+            <button onclick="nextScreen()" class="forward-btn">
+                ileri >>
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. EKRAN -->
+    <div id="screen3" class="screen">
+        <div class="image-card">
+            <img src="https://i.ibb.co/4wZVB7dT/MG-5814.jpg" alt="Esma Özel" class="final-img">
+            <p class="sub-text">“senin için coştu indirmeye razimisin?”</p>
+            
+            <a href="https://i.ibb.co/4wZVB7dT/MG-5814.jpg" target="_blank" download class="download-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                İndir
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const screen1 = document.getElementById('screen1');
+        const screen2 = document.getElementById('screen2');
+        const screen3 = document.getElementById('screen3');
+
+        // 1. Ekrandan 2. Ekrana 10 saniye sonra geçiş
+        setTimeout(() => {
+            screen1.style.opacity = '0';
+            setTimeout(() => {
+                screen1.style.display = 'none';
+                screen2.style.display = 'flex';
+                setTimeout(() => {
+                    screen2.style.opacity = '1';
+                    screen2.style.pointerEvents = 'auto';
+                }, 50);
+            }, 1000);
+        }, 10000);
+
+        // 2. Ekrandan 3. Ekrana geçiş
+        function nextScreen() {
+            screen2.style.opacity = '0';
+            setTimeout(() => {
+                screen2.style.display = 'none';
+                screen3.style.display = 'flex';
+                setTimeout(() => {
+                    screen3.style.opacity = '1';
+                    screen3.style.pointerEvents = 'auto';
+                }, 50);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
